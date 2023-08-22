@@ -5,13 +5,16 @@ import cors from "cors";
 import { game } from "./db";
 import authenticate from "./utils/authenticate";
 import { messageHandler } from "./ws/config";
+import { configDotenv } from "dotenv";
+configDotenv();
 
 const PORT = process.env.PORT || 5000;
 
 export const MATCH_PLAYERS_NUMBER =
   Number(process.env.MATCH_PLAYERS_NUMBER) || 2;
 
-export const MATCH_SUBMIT_DELAY = 1000;
+export const MATCH_SUBMIT_DELAY =
+  Number(process.env.MATCH_SUBMIT_DELAY) || 1000;
 
 const app = express();
 app.use(cors());

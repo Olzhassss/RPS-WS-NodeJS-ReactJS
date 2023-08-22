@@ -6,8 +6,6 @@ import { Queue } from "./Queue";
 import { Sessions } from "./Sessions";
 import { randomUUID } from "crypto";
 import { PlayerSession } from "./PlayerSession";
-import sendError from "../utils/sendError";
-import sendMessage from "../utils/sendMessage";
 import sendReject from "../utils/sendReject";
 
 export class Game {
@@ -146,7 +144,7 @@ export class Game {
   }
 
   /**
-   * rejectRetry
+   * acceptRetry
    */
   public acceptRetry(ws: WebSocket, match_id: ID, session_id: ID) {
     const match = this.getClosedMatch(match_id);

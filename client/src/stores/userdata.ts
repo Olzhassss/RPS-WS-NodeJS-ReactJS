@@ -3,6 +3,8 @@ import { ID } from "../ws/constants";
 
 class UserData {
   score = 0;
+  totalMatches = 0;
+  playersPerMatch: string | undefined = undefined;
   session_id: ID | null = null;
   socket: WebSocket | null = null;
   username: string | null = null;
@@ -27,11 +29,15 @@ class UserData {
   incrementScore() {
     this.score += 1;
   }
+  incrementTotal() {
+    this.totalMatches += 1;
+  }
 
   reset() {
     this.session_id = null;
     this.username = null;
     this.score = 0;
+    this.totalMatches = 0;
   }
 
   isEmpty() {

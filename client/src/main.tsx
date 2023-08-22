@@ -1,13 +1,12 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
-// import "./styles/index.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import App from "./App.tsx";
 import Entry from "./routes/Entry.tsx";
-import Queue from "./routes/Queue.tsx";
-import Game from "./routes/Game.tsx";
 import Error from "./routes/Error.tsx";
+import Game from "./routes/Game.tsx";
+import Queue from "./routes/Queue.tsx";
 
 const router = createBrowserRouter([
   {

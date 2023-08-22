@@ -21,7 +21,6 @@ function Queue() {
     if (userdata.isEmpty()) {
       navigate("/");
     } else {
-      console.log("Sending VERIFY on component initialization.");
       sendMessage({
         method: WS_METHODS.VERIFY,
         id: userdata.session_id as string,
@@ -57,6 +56,11 @@ function Queue() {
           <Card>
             <Card.Body>
               <h2>{started ? "In Queue." : "Prepared to start."}</h2>
+              <sub>
+                According to the configuration, a match requires{" "}
+                {userdata.playersPerMatch ?? "(who knows how many)"} players to
+                start.
+              </sub>
             </Card.Body>
           </Card>
         </Col>

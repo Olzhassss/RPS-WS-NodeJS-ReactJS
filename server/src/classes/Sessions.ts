@@ -3,6 +3,9 @@ import { WebSocket } from "ws";
 import { PlayerSession } from "./PlayerSession";
 import { Token } from "./Token";
 
+/**
+ * This class meant to be used for JWT authentication and sessions control, but idea has not been implemented.
+ */
 export class Sessions {
   private sessions: Array<PlayerSession> = [];
   tokens: Array<Token> = [];
@@ -12,7 +15,10 @@ export class Sessions {
    */
   public getSessions() {
     return this.sessions.map((val) => {
-      val.session_id, val.username;
+      return {
+        id: val.session_id,
+        username: val.username,
+      };
     });
   }
 

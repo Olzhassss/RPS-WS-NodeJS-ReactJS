@@ -24,7 +24,7 @@ const Header = observer(() => {
             Session: {userdata.session_id}
           </Col>
           <Col xs lg="2">
-            Score: {userdata.score}
+            Score / Total matches: {userdata.score}/{userdata.totalMatches}
           </Col>
         </Row>
       </Container>

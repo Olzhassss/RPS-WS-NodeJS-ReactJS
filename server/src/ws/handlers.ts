@@ -4,6 +4,7 @@ import { Choice, WS_METHODS, WebSocketMessage } from "./types";
 import { WebSocket } from "ws";
 import sendError from "../utils/sendError";
 import sendUnauthorized from "../utils/sendUnauthorized";
+import { MATCH_PLAYERS_NUMBER } from "../";
 
 export function handleVerify(ws: WebSocket, message: WebSocketMessage) {
   if (!message.id || !message.username) {
@@ -81,6 +82,7 @@ export function handleRegister(ws: WebSocket, message: WebSocketMessage) {
       method: WS_METHODS.REGISTER,
       id: result.session_id,
       username: result.username,
+      message: String(MATCH_PLAYERS_NUMBER),
     });
   } else {
     console.log("Registration failed for session " + message.id);

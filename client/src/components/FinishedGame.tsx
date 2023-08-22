@@ -22,12 +22,11 @@ const FinishedGame = observer(() => {
       username: userdata.username as string,
       match_id: match.match_id as string,
     });
-    navigate("/" + userdata.session_id);
+    navigate("/queue");
   }
 
   React.useEffect(() => {
-    const redirect = () =>
-      navigate("/" + userdata.session_id + "/" + match.match_id);
+    const redirect = () => navigate("/game");
     userdata.socket?.addEventListener(WS_METHODS.PREPARE, redirect, {
       once: true,
     });

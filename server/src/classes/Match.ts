@@ -1,12 +1,11 @@
-import sendError from "../utils/sendError";
 import { randomUUID } from "crypto";
-import { PlayerSession } from "./PlayerSession";
-import sendMessage from "../utils/sendMessage";
-import { Choice, ID, WS_METHODS, WebSocketMessage } from "../ws/types";
 import { setInterval } from "node:timers/promises";
-import { MATCH_SUBMIT_DELAY } from "../";
-import sendReject from "../utils/sendReject";
 import { setTimeout } from "timers/promises";
+import { MATCH_SUBMIT_DELAY } from "../";
+import sendMessage from "../utils/sendMessage";
+import sendReject from "../utils/sendReject";
+import { Choice, ID, WS_METHODS, WebSocketMessage } from "../ws/types";
+import { PlayerSession } from "./PlayerSession";
 
 // TODO: connect model to database table and get match_id from there.
 export class Match {
@@ -146,6 +145,9 @@ export class Match {
     }
   }
 
+  /**
+   * Sets this.result to the array of usernames of the winners.
+   */
   private calculate() {
     const ChoiceMap = new Map();
     ChoiceMap.set(Choice.ROCK, 0);
@@ -159,7 +161,7 @@ export class Match {
     );
     let winnerChoice: Choice;
     if (!fisrtAdequateChoicePlayer) {
-      // No adequate choice selected
+      // No adequate choice selected, i.e. everyone submitted null
       isDraw = true;
     } else {
       winnerChoice = fisrtAdequateChoicePlayer.choice;

@@ -14,7 +14,7 @@ const Game = observer(() => {
 
   React.useEffect(() => {
     if (userdata.isEmpty() || match.isEmpty()) {
-      navigate("/");
+      navigate("/queue");
     } else {
       sendMessage({
         method: WS_METHODS.VERIFY,

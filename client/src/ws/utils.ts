@@ -1,5 +1,5 @@
 import userdata from "../stores/userdata";
-import { messageHandler } from "./config";
+import { messageHandler } from "./messageHandler";
 import { BACKEND_URL_WS, ID, WS_METHODS, WebSocketMessage } from "./constants";
 
 export function sendDestroy(session_id: ID) {
@@ -20,8 +20,8 @@ export function sendMessage(msg: Partial<WebSocketMessage>) {
   }
   const data = JSON.stringify(msg);
 
-  console.log("Sending = ");
-  console.log(msg);
+  // console.log("Sending = ");
+  // console.log(msg);
 
   userdata.socket.send(data);
 }
