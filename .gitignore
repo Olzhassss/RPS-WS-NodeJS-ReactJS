@@ -17,3 +17,5 @@ yarn-error.log*
 
 /server/node_modules
 /.idea
+client/.env
+server/.env
