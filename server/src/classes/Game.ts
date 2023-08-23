@@ -102,6 +102,7 @@ export class Game {
   public removeBySocket(ws: WebSocket) {
     this.queue.removeBySocket(ws);
     this.sessions.removeBySocket(ws);
+    ws.close();
   }
 
   /**
@@ -116,7 +117,6 @@ export class Game {
     }
 
     if (!match.sendRetry(session_id)) {
-      sendReject(ws, match.match_id, "Failed to send retry requests.");
       return;
     }
 
@@ -153,7 +153,11 @@ export class Game {
       sendReject(ws, match_id, "Match not found to retry!");
       return;
     }
-    if (match.acceptRetry(session_id) && match.allAccepted()) {
+    if (!match.acceptRetry(session_id)) {
+      sendReject(ws, match_id, "Match cannot be retried anymore.");
+      return;
+    }
+    if (match.allAccepted()) {
       console.log("All players accepted retry.");
       match.retry_status = "ACCEPTED";
       this.startMatch(match.players);

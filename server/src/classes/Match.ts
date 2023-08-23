@@ -156,22 +156,19 @@ export class Match {
 
     let isDraw = false;
 
-    const fisrtAdequateChoicePlayer = this.players.find((p) =>
+    const repliedPlayers = this.players.filter((p) =>
       Object.values(Choice).includes(p.choice)
     );
+
     let winnerChoice: Choice;
-    if (!fisrtAdequateChoicePlayer) {
-      // No adequate choice selected, i.e. everyone submitted null
+    if (!repliedPlayers.length) {
       isDraw = true;
     } else {
-      winnerChoice = fisrtAdequateChoicePlayer.choice;
+      winnerChoice = repliedPlayers[0].choice;
       let choices = new Set();
 
-      this.players.forEach((p) => {
+      repliedPlayers.forEach((p) => {
         const { choice } = p;
-        if (!Object.values(Choice).includes(choice)) {
-          return;
-        }
         choices.add(choice);
         const result = choice
           ? (3 + ChoiceMap.get(choice) - ChoiceMap.get(winnerChoice)) % 3
@@ -182,7 +179,10 @@ export class Match {
         }
       });
 
-      if (choices.size == 3 || choices.size == 1) {
+      if (
+        choices.size == 3 ||
+        (choices.size == 1 && repliedPlayers.length == this.players.length)
+      ) {
         // all three choices were selected or everyone selected the same
         isDraw = true;
       }
@@ -219,6 +219,7 @@ export class Match {
   public sendRetry(session_id: ID) {
     if (this.retry_status != "NONE") {
       console.warn("Denied match retry since retry status is not NONE.");
+      this.sendReject("The match cannot by retried.");
       return false;
     }
     console.log("Sending retry requests");
@@ -229,6 +230,7 @@ export class Match {
       console.warn(
         "Denied match retry reject since initiator did not participate."
       );
+      this.sendReject("You did not participate in the match.");
       return false;
     }
 
@@ -251,9 +253,7 @@ export class Match {
       });
 
     if (offline) {
-      this.broadcastToPlayers({
-        method: WS_METHODS.RETRY_REJECT,
-      });
+      this.sendReject("Some players are already offline.");
       this.retry_status = "REJECTED";
       return false;
     }
