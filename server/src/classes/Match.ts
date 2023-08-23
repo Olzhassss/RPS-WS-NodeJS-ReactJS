@@ -165,22 +165,22 @@ export class Match {
       isDraw = true;
     } else {
       winnerChoice = fisrtAdequateChoicePlayer.choice;
-      let winnerChangeCount = 1;
+      let choices = new Set();
 
       this.players.forEach((p) => {
-        if (winnerChangeCount == 3) {
-          isDraw = true;
-          return;
-        }
         const { choice } = p;
-
+        choices.add(choice);
         const result = choice
           ? (3 + ChoiceMap.get(choice) - ChoiceMap.get(winnerChoice)) % 3
           : 0;
         if (result == 1) {
           // new winner
           winnerChoice = choice;
-          winnerChangeCount++;
+        }
+
+        if (choices.size == 3 || choices.size == 1) {
+          isDraw = true;
+          return;
         }
       });
     }
