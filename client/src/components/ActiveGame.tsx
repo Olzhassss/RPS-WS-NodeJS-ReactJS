@@ -64,10 +64,9 @@ const ActiveGame = observer(() => {
                 name="choice"
                 type="radio"
                 value={val.choice}
-                onChange={(e) => {
-                  match.setChoice(e.currentTarget.value as Choice);
-                  console.log(match.choice);
-                }}
+                onChange={(e) =>
+                  match.setChoice(e.currentTarget.value as Choice)
+                }
               />
             ))}
           </Form>
