@@ -169,6 +169,9 @@ export class Match {
 
       this.players.forEach((p) => {
         const { choice } = p;
+        if (!Object.values(Choice).includes(choice)) {
+          return;
+        }
         choices.add(choice);
         const result = choice
           ? (3 + ChoiceMap.get(choice) - ChoiceMap.get(winnerChoice)) % 3
@@ -177,12 +180,12 @@ export class Match {
           // new winner
           winnerChoice = choice;
         }
-
-        if (choices.size == 3 || choices.size == 1) {
-          isDraw = true;
-          return;
-        }
       });
+
+      if (choices.size == 3 || choices.size == 1) {
+        // all three choices were selected or everyone selected the same
+        isDraw = true;
+      }
     }
 
     if (isDraw) {
