@@ -53,6 +53,7 @@ const FinishedGame = observer(() => {
               style={{ minWidth: "50%" }}
               size="lg"
               onClick={handleRetry}
+              disabled={!match.accepts_retries}
             >
               {match.accepts_retries ? (
                 "Retry!"
@@ -84,7 +85,6 @@ const FinishedGame = observer(() => {
 
 const handleRetry: React.MouseEventHandler<HTMLButtonElement> = (e) => {
   e.currentTarget.innerText = "Awating replies...";
-  e.currentTarget.disabled = true;
   sendMessage({
     method: WS_METHODS.RETRY,
     id: userdata.session_id as string,
