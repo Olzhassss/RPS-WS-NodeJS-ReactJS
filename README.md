@@ -2,7 +2,7 @@
 
 Author: Olzhas Toleutay [@Olzhasus](t.me/Olzhasus)
 
-IP: [http://172.105.85.134](http://172.105.85.134)
+IP: [http://172.105.85.134](http://172.105.85.134) (UPD: disabled)
 
 ## Implementation info
 
